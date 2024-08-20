@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .order-summary {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Food Ordering System</h1>
+    <form id="orderForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+
+        <label for="food">Choose your food:</label>
+        <select id="food" name="food" required>
+            <option value="Pizza">Pizza</option>
+            <option value="Burger">Burger</option>
+            <option value="Pasta">Pasta</option>
+            <option value="Salad">Salad</option>
+        </select>
+        <br><br>
+
+        <label>Extras:</label>
+        <input type="checkbox" id="cheese" name="extras" value="Cheese">
+        <label for="cheese">Cheese</label>
+        <input type="checkbox" id="bacon" name="extras" value="Bacon">
+        <label for="bacon">Bacon</label>
+        <input type="checkbox" id="mushrooms" name="extras" value="Mushrooms">
+        <label for="mushrooms">Mushrooms</label>
+        <br><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="1" min="1" required>
+        <br><br>
+
+        <label for="notes">Special Instructions:</label>
+        <textarea id="notes" name="notes" rows="4" cols="50"></textarea>
+        <br><br>
+
+        <input type="submit" value="Place Order">
+    </form>
+
+    <div class="order-summary" id="orderSummary"></div>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const food = document.getElementById('food').value;
+            const extras = Array.from(document.querySelectorAll('input[name="extras"]:checked')).map(extra => extra.value);
+            const quantity = document.getElementById('quantity').value;
+            const notes = document.getElementById('notes').value;
+
+            let summary = `<h2>Order Summary</h2>`;
+            summary += `<p><strong>Name:</strong> ${name}</p>`;
+            summary += `<p><strong>Food:</strong> ${food}</p>`;
+            summary += `<p><strong>Extras:</strong> ${extras.join(', ') || 'None'}</p>`;
+            summary += `<p><strong>Quantity:</strong> ${quantity}</p>`;
+            summary += `<p><strong>Special Instructions:</strong> ${notes || 'None'}</p>`;
+
+            document.getElementById('orderSummary').innerHTML = summary;
+        });
+    </script>
+</body>
+</html>
